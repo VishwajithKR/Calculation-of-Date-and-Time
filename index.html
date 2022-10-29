@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 20</title>
+</head>
+
+<body>
+    <script>
+
+        // main of screen 
+        var parentdiv = document.createElement("div");
+        parentdiv.setAttribute("style", "padding-top:20px");
+
+
+
+
+
+        // first section 
+        var dateele = document.createElement("input");
+        dateele.setAttribute("type", "date")
+        dateele.setAttribute("id", "dob");
+
+        // second section 
+        var button = document.createElement("button");
+        button.innerHTML = "display data"
+        button.setAttribute("type", "button");
+        button.setAttribute("onclick", "datecalculation()");
+
+        // mention on first section 
+        parentdiv.appendChild(dateele)
+
+        // mention on second section 
+        parentdiv.appendChild(button)
+
+        var displaydiv = document.createElement("div")
+
+        // mention the main section 
+        document.body.append(parentdiv)
+
+        function datecalculation() {
+            var input = document.getElementById("dob").value;
+            // console.log(typeof(input));
+            // console.log(date.parse(input));
+
+            if (Date.parse(input)) {
+                var inputdate = new Date(input);
+                console.log(inputdate, '==========');
+
+                var currentdate = new Date();
+                console.log(currentdate, 'uuuuuuuuuuuu');
+
+                var millisecdiff = parseInt(currentdate.getTime()) - parseInt(inputdate.getTime());
+                console.log(millisecdiff);
+
+                var secondDiff = Math.floor(millisecdiff / 1000);
+                console.log(secondDiff)
+
+                var minuteDiff = Math.floor(secondDiff / 60);
+                console.log(minuteDiff);
+
+                var hourDiff = Math.floor(minuteDiff / 60);
+                console.log(hourDiff);
+
+                var dayDiff = Math.floor(hourDiff / 24);
+                console.log(dayDiff);
+
+                var monthDiff = Math.floor(dayDiff / 12);
+                console.log(monthDiff);
+
+
+                var yeardiff = getfullyear(inputdate, currentdate);
+
+                function getfullyear(value1, value2) {
+                    var date1 = new Date(value1);
+                    var date2 = new Date(value2);
+
+                    return date2.getFullYear() - date1.getFullYear();
+
+                }
+
+                function getmonthdiff(value1, value2) {
+                    var year = currentdate.getFullYear() - inputdate.getFullYear();
+                    var month = year * 12 + (currentdate.getMonth() - inputdate.getMonth());
+                    return month;
+                }
+                displaydiv.innerHTML = `the date is ${inputdate}<br>
+                millisecond difference: ${millisecdiff}<br>
+                second difference: ${secondDiff}<br>
+                minutes difference: ${minuteDiff}<br>
+                hour difference: ${hourDiff}<br>
+                month difference: ${monthDiff}<br>
+                year difference: ${yeardiff}<br>`
+
+            } else {
+                displaydiv.innerHTML = "input date is not valid"
+            }
+            document.body.appendChild(displaydiv)
+
+            
+        }
+
+
+    </script>
+
+
+
+</body>
+
+</html>
